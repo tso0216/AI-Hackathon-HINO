@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.env
+.ai_off
+.DS_Store
+HINO 競賽數據/
+demoi_video/

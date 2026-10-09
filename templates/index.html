@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HINO Pilot</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23D52B1E%22/%3E%3Cpath d=%22M9 21h14M11 21V11h7l3 4v6%22 stroke=%22white%22 stroke-width=%222.4%22 fill=%22none%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <!-- 在畫面出來前套用上次選的主題，避免先閃一下淺色 -->
+  <script>try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch {}</script>
+  <!-- 瀏覽器外框（Demo 展示用）預設開啟，同樣先套用避免畫面跳動 -->
+  <script>try { if (localStorage.getItem('frame') !== 'off') document.documentElement.classList.add('framed'); } catch { document.documentElement.classList.add('framed'); }</script>
+</head>
+<body>
+<!-- 瀏覽器外框：關閉時 .bf / .bf-view 以 display: contents 退回原本的全頁版面 -->
+<div class="bf">
+<div class="bf-bar" aria-hidden="true">
+  <div class="bf-lights"><i></i><i></i><i></i></div>
+  <div class="bf-tab">HINO Pilot<span class="bf-sep">|</span><span id="bf-tab-page">首頁總覽</span></div>
+  <div class="bf-url">hino-pilot&nbsp;/&nbsp;<span id="bf-url-page">首頁總覽</span></div>
+</div>
+<div class="bf-view">
+<div class="app">
+
+  <!-- 左側導覽 -->
+  <aside class="nav">
+    <div class="brand">
+      <div class="brand-mark"><svg viewBox="0 0 24 24"><path d="M5 17h14M7 17V8h8l3 4v5"/><circle cx="9" cy="17.5" r="1.6"/><circle cx="16" cy="17.5" r="1.6"/></svg></div>
+      <div class="brand-name">HINO 後台</div>
+    </div>
+
+    <nav class="nav-list" id="nav-list">
+      <a href="#home" data-page="home"><i data-icon="dashboard"></i>首頁總覽</a>
+      <a href="#delivery" data-page="delivery"><i data-icon="route"></i>即時配送<span class="nav-badge" id="nav-badge-delivery" hidden></span></a>
+      <a href="#drivers" data-page="drivers"><i data-icon="users"></i>司機績效</a>
+      <a href="#fleet" data-page="fleet"><i data-icon="truck"></i>車隊績效</a>
+      <a href="#safety" data-page="safety"><i data-icon="shield"></i>安全與合規<span class="nav-badge" id="nav-badge-safety" hidden></span></a>
+    </nav>
+
+    <div class="nav-company">
+      <div class="avatar sm" id="company-ava">順</div>
+      <div><div class="nav-company-name" id="company-name">—</div><div class="nav-company-sub">20 台車 · 老闆帳號</div></div>
+    </div>
+
+    <!-- Demo 控制：模擬一天中的四個時間點 -->
+    <div class="demo">
+      <div class="demo-hd">
+        <span>Demo 模擬</span>
+        <button class="demo-reset" id="btn-reset" title="重置 Demo">重置</button>
+      </div>
+      <div class="demo-clock">
+        <button class="demo-play" id="btn-play" title="播放"><i data-icon="play"></i></button>
+        <div>
+          <div class="demo-time" id="demo-time">14:00</div>
+          <div class="demo-date" id="demo-date">2025/11/21（五）</div>
+        </div>
+      </div>
+      <input type="range" class="demo-range" id="demo-range" min="360" max="1320" step="5" value="840">
+      <div class="demo-scenes" id="demo-scenes">
+        <button data-t="450" data-go="home">07:30<small>LINE 晨報</small></button>
+        <button data-t="840" data-go="delivery">14:00<small>即時提醒</small></button>
+        <button data-t="1050" data-go="safety">17:30<small>工時預警</small></button>
+        <button data-monthly="1">月底<small>績效月報</small></button>
+      </div>
+      <div class="demo-ai"><span class="dot" id="ai-dot"></span><span id="ai-label" class="grow">—</span><button class="switch" id="ai-switch" role="switch" aria-checked="false" aria-label="AI 開關"></button></div>
+      <div class="demo-ai"><span class="grow">瀏覽器外框</span><button class="switch" id="frame-switch" role="switch" aria-checked="false" aria-label="瀏覽器外框開關"></button></div>
+    </div>
+  </aside>
+
+  <!-- 主內容 -->
+  <main class="main" id="main">
+    <header class="topbar">
+      <h1 id="page-title">首頁總覽</h1>
+      <div class="topbar-actions">
+        <div class="clock-pill" title="以 iTRAQ 競賽資料 2025/11/21 的真實軌跡回放今天">
+          <span class="live-dot"></span><span id="top-clock">11/21（五）14:00</span><span class="clock-tag">資料回放</span>
+        </div>
+        <button class="icon-btn" id="btn-theme" title="切換成夜間模式"></button>
+        <button class="icon-btn" id="btn-bell" title="即時提醒"><i data-icon="bell"></i><span class="bell-count" id="bell-count" hidden></span></button>
+        <button class="btn primary" id="btn-ask"><i data-icon="sparkles"></i>問 AI</button>
+      </div>
+    </header>
+
+    <section class="page" data-page="home" id="page-home"></section>
+    <section class="page" data-page="delivery" id="page-delivery"></section>
+    <section class="page" data-page="drivers" id="page-drivers"></section>
+    <section class="page" data-page="fleet" id="page-fleet"></section>
+    <section class="page" data-page="safety" id="page-safety"></section>
+  </main>
+
+  <!-- 問 AI -->
+  <aside class="ask" id="ask" aria-hidden="true">
+    <div class="ask-hd">
+      <div class="ask-ava"><i data-icon="sparkles"></i></div>
+      <div class="grow">
+        <div class="ask-title">問 AI</div>
+        <div class="ask-sub" id="ask-sub">用口語提問，AI 查 iTRAQ 數據後回答</div>
+      </div>
+      <button class="icon-btn ghost" id="btn-ask-clear" title="清除對話"><i data-icon="rotate"></i></button>
+      <button class="icon-btn ghost" id="btn-ask-close" title="關閉"><i data-icon="x"></i></button>
+    </div>
+    <div class="ask-body" id="ask-body"></div>
+    <div class="ask-suggest" id="ask-suggest"></div>
+    <form class="ask-composer" id="ask-form">
+      <input id="ask-input" placeholder="例如：這個月誰最需要關心？" autocomplete="off">
+      <button class="send" title="送出"><i data-icon="send"></i></button>
+    </form>
+  </aside>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal-wrap" id="modal-wrap"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+</div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="{{ url_for('static', filename='charts.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

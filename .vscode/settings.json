@@ -1,0 +1,8 @@
+{
+    "workbench.colorCustomizations": {
+        "commandCenter.border": "#D4C05A",
+        "commandCenter.activeBorder": "#D4C05A",
+        "commandCenter.inactiveBorder": "#D4C05A80"
+    },
+    "windowTint.color": "#D4C05A"
+}

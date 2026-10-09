@@ -1,0 +1,8 @@
+flask>=3.0
+openai>=1.40
+python-dotenv>=1.0
+lightgbm>=4.0
+numpy>=1.26
+# 只有重新產生資料（scripts/）時需要
+pandas>=2.0
+openpyxl>=3.1

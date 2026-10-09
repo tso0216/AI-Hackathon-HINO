@@ -1,0 +1,122 @@
+[
+ {
+  "plate": "ABC-2713",
+  "interval_km": 10000,
+  "next_service_km": 39700,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-2389",
+  "interval_km": 20000,
+  "next_service_km": 40000,
+  "last_service_date": "2025-10-21"
+ },
+ {
+  "plate": "ABC-6325",
+  "interval_km": 10000,
+  "next_service_km": 30000,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-7756",
+  "interval_km": 15000,
+  "next_service_km": 60000,
+  "last_service_date": "2025-10-21"
+ },
+ {
+  "plate": "ABC-1868",
+  "interval_km": 15000,
+  "next_service_km": 30000,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-7610",
+  "interval_km": 20000,
+  "next_service_km": 40000,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-1655",
+  "interval_km": 15000,
+  "next_service_km": 15000,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-1999",
+  "interval_km": 10000,
+  "next_service_km": 30000,
+  "last_service_date": "2025-09-03"
+ },
+ {
+  "plate": "ABC-1507",
+  "interval_km": 10000,
+  "next_service_km": 40000,
+  "last_service_date": "2025-10-21"
+ },
+ {
+  "plate": "ABC-5310",
+  "interval_km": 15000,
+  "next_service_km": 60000,
+  "last_service_date": "2025-10-21"
+ },
+ {
+  "plate": "ABC-9818",
+  "interval_km": 10000,
+  "next_service_km": 30000,
+  "last_service_date": "2025-10-08"
+ },
+ {
+  "plate": "ABC-5887",
+  "interval_km": 15000,
+  "next_service_km": 75000,
+  "last_service_date": "2025-09-03"
+ },
+ {
+  "plate": "ABC-1926",
+  "interval_km": 10000,
+  "next_service_km": 60000,
+  "last_service_date": "2025-09-03"
+ },
+ {
+  "plate": "ABC-2650",
+  "interval_km": 10000,
+  "next_service_km": 50000,
+  "last_service_date": "2025-10-21"
+ },
+ {
+  "plate": "ABC-5979",
+  "interval_km": 10000,
+  "next_service_km": 30000,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-2037",
+  "interval_km": 10000,
+  "next_service_km": 20000,
+  "last_service_date": "2025-10-08"
+ },
+ {
+  "plate": "ABC-7599",
+  "interval_km": 20000,
+  "next_service_km": 40000,
+  "last_service_date": "2025-10-08"
+ },
+ {
+  "plate": "ABC-7569",
+  "interval_km": 10000,
+  "next_service_km": 40000,
+  "last_service_date": "2025-09-03"
+ },
+ {
+  "plate": "ABC-6776",
+  "interval_km": 20000,
+  "next_service_km": 99200,
+  "last_service_date": "2025-08-12"
+ },
+ {
+  "plate": "ABC-7160",
+  "interval_km": 20000,
+  "next_service_km": 200000,
+  "last_service_date": "2025-10-21"
+ }
+]
